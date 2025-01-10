@@ -9,6 +9,7 @@ import {ProfileProvider, useProfile} from '@/components/Context'
 
 const Search = () =>{
   //1. Initializing the state variables
+  const [searching,setSearching] = useState(false);
   const [results, setResults] = useState([]);
   const [input, setInput] = useState('');
   const [opacity, setOpacity] = useState(0.4);
@@ -26,13 +27,21 @@ const Search = () =>{
   ),[input])*/
 
   const search = async () => {
-    const response = await fetch(`https://newsapi.org/v2/everything?q=${input}&apiKey=`);
+    try {const response = await fetch(`https://newsapi.org/v2/everything?q=${input}&apiKey=`);
     const data = await response.json();
+    console.log(data.totalResults)
     setResults(data.articles);
-    setInput(input);
+    setInput(input)
+    setSearching(true);}
+    catch(e) {
+      alert('Could not find articles');
+    }
   };
   //this is just to have opaque text
-  
+  const onInput = (text) => {
+    setInput(text);
+    setSearching(false);
+  }
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -45,11 +54,12 @@ const Search = () =>{
           style={styles.input}
           placeholder="Search for news"
           value={input}
-          onChangeText={setInput}
+          onChangeText={onInput}
         />
         <Button title="Submit" onPress={search} />
         <ScrollView style={styles.scrollView}>
-          {results ? (<NewsFeed articles={results} />) : (input && <Text>No Results Found. Sorry</Text>)}
+          {(results && results.length>0) ? <NewsFeed articles={results} /> : 
+          searching && <Text style={{textAlign:'center',fontSize:70, fontWeight:600}}>Sorry No results found</Text>}
         </ScrollView>
       </View>
     </View>

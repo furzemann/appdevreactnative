@@ -4,15 +4,17 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ProfileProvider,useProfile } from '@/components/Context';
 import { launchImageLibrary } from 'react-native-image-picker';
 import HomeButton from '@/components/HomeButton'
+import * as ImagePicker from 'expo-image-picker'
 
 const Profile = ()=> {
   const { profileImage, updateProfileImage } = useProfile();
-
-  const ImagePicker = () => {
+   
+  const getImage = async() => {
     let options = {
       mediaType: 'photo',
+
     };
-    launchImageLibrary(options, (response) => {
+     await launchImageLibrary(options, (response) => {
       let imageUri = response.uri || response.assets?.[0]?.uri;
       updateProfileImage(imageUri);
     });
@@ -69,7 +71,7 @@ const [profileData, setProfileData] = useState(formdata);
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Pressable onPress={ImagePicker}>
+      <Pressable onPress={getImage}>
       <Image style={{height:300,width:300,borderRadius:150}} source={profileImage}/>
       </Pressable>
       {input ? (

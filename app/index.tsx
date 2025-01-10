@@ -2,7 +2,7 @@ import React, {useState,useEffect} from 'react'
 import {Pressable,View, Button, TextInput, Text, StyleSheet, ImageBackground} from 'react-native'
 import {Link} from 'expo-router'
 import app,{auth} from '@/components/firebaseConfig'
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, User } from '@firebase/auth';
+import { getAuth, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, User } from '@firebase/auth';
 
 
 interface AuthProps1 {
@@ -14,6 +14,9 @@ interface AuthProps1 {
     setPassword: (password:string)=>void;
     Authentication: ()=>void;   
 }
+
+const provider = new GoogleAuthProvider();
+
 
 const AuthScreen = ({setIsLogin, isLogin, email, setEmail, password, setPassword, Authentication}: AuthProps1) => {
     return (<ImageBackground source={require('@/assets/images/qg2anjwb5l2a1.png')} style={styles.backgroundImage}><View style={styles.loginContainer}>
@@ -30,9 +33,6 @@ const AuthScreen = ({setIsLogin, isLogin, email, setEmail, password, setPassword
         </Pressable>)}
         <Pressable style={styles.button} onPress={()=>setIsLogin(!isLogin)}>
           <Text style={styles.buttonText}>{isLogin ? "Don't have an account? create one":"Already have an Account"}</Text>
-        </Pressable>
-        <Pressable style={styles.button} onPress={()=>{}}>
-          <Text style={styles.buttonText}>Use Google</Text>
         </Pressable>
     </View></ImageBackground>)
 }
@@ -84,7 +84,7 @@ export default function App() {
         }
       }
     } catch (error) {
-        alert(isLogin?"Wrong Username/Password or Password is too Short(<6 chars)":"This Email is already in use or Password is too Short(<6 chars)");
+        alert(isLogin?"Wrong Username/Password":"This Email is already in use or Password is too Short(<6 chars)");
     }
     }
 

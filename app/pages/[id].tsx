@@ -98,16 +98,8 @@ const styles = StyleSheet.create({
   buttonText:{
   fontWeight:200,
   color:'white'
-  },
+  }, 
   button: {
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    backgroundColor: '#060029',
-    borderRadius: 5,
-    textAlign: 'center',
-    margin:5,
-  },
-  Savedbutton: {
     paddingVertical: 10,
     paddingHorizontal: 20,
     backgroundColor: 'red',

@@ -2,16 +2,8 @@ import React, { createContext, useState, useContext, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const ProfileContext = createContext();
-const ThemeContext = createContext();
 const defaultProfileImage = require('@/assets/images/placeholder.jpg')
-export const ThemeProvider = ({children}) => {
-  const [Theme,setTheme] = useState(true)
-  return (<ThemeProvider>
-    {children}
-  </ThemeProvider>)
-}
 
-export const useTheme = useContext(ThemeContext)
 
 export const ProfileProvider = ({ children }) => {
   const [profileImage, setProfileImage] = useState(defaultProfileImage);

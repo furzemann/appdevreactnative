@@ -38,6 +38,7 @@ export default function Article({ GivenArticle, id}: Props) {
         user: user,
         key: key ,
       })
+      alert('Document is saved :) !!')
       setSaved(true); }
       else {
         setSaved(true)
@@ -47,8 +48,6 @@ export default function Article({ GivenArticle, id}: Props) {
     catch(e) {
       console.error("Data could not be mounted")
     }}
-    else {
-    }
   }
   /*const saveArticle = async() => {
     if (!saved) {try {

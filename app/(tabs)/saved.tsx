@@ -49,8 +49,8 @@ export default function SaveApp () {
       return () => unsubscribe()   
     } },[user])
     const articleList = articles.map((item) => ({data:item.data,id:item.id}))
-    return(<View>
-{user ? <SavedList articles={articleList} /> : <Pressable onPress={() => {console.log(user)}}><Text>Loading...</Text></Pressable>}</View>
+    return(<ScrollView>
+{user ? <SavedList articles={articleList} /> : <Text>Loading...</Text>}</ScrollView>
     )
 }
 
